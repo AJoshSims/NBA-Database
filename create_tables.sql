@@ -1,3 +1,7 @@
+-- @author Evan Arroyo
+-- @author Joshua Sims
+-- @version 03 March 2017
+
 CREATE TABLE player(
     
     pname       varchar(20),
@@ -6,7 +10,7 @@ CREATE TABLE player(
     height      int,
     primary key(pname)
 
-)
+);
 
 CREATE TABLE team(
     
@@ -14,7 +18,7 @@ CREATE TABLE team(
     city        varchar(10),
     primary key(tname)
 
-)
+);
 
 CREATE TABLE hasPlayedFor(
 
@@ -24,4 +28,4 @@ CREATE TABLE hasPlayedFor(
     foreign key(pname) references player,
     foreign key(tname) references team
     
-)    
+);   

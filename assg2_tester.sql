@@ -7,8 +7,19 @@
 -- database instance provided. Other database instances with
 -- different results may be in evaluating the correctness of 
 -- your solutions
+--
 -- @author Mark Holliday
--- @version 10 February 2017
+-- @author Joshua Sims
+-- @author Evan Arroyo
+-- @version 03 March 2017
+
+\i create_tables.sql
+
+\copy player from 'nba_db_data/player_data.txt'
+\copy team from 'nba_db_data/team_data.txt'
+\copy hasPlayedFor from 'nba_db_data/hasPlayedFor_data.txt'
+
+
 
 \echo 'Problem 1: Find the names of the teams that have had at least one player be a member who also went to college at WCU.'
 
@@ -175,3 +186,7 @@ WITH maxHeightOfWcuPlayers AS
 SELECT pname
 FROM player
 WHERE height > maxHeightOfWcuPlayers.maxHeight;
+
+
+
+\i drop_tables.sql
