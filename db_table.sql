@@ -21,7 +21,7 @@ CREATE TABLE hasPlayedFor(
     pname       varchar(20),
     tname       varchar(20),
     primary key(pname,tname),
-    foreign key(pname) refrences player,
-    foreign key(tname) refrenes team
+    foreign key(pname) references player,
+    foreign key(tname) references team
     
 )    

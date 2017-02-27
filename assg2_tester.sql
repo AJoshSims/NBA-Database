@@ -14,7 +14,9 @@
 
 \echo '\nResult should be:\ntname\nTimberwolves\nRockets\nThunder\nKings\n'
 
-\echo 'replace this line (including \echo) with your query'
+SELECT DISTINCT tname
+FROM hasPlayedFor, player
+WHERE college = 'WCU';
 
 
 
@@ -22,8 +24,10 @@
 
 \echo 'Result should be:\npname\nRedick\nIguodala\nMalone\nMartin\n'
 
-\echo 'replace this line (including \echo) with your query'
-
+SELECT pname
+FROM hasPlayedFor
+WHERE COUNT(tname) > 2
+GROUP BY pname;
 
 
 
@@ -31,7 +35,12 @@
 
 \echo 'Result should be:\naverage_number_players\n1.60000\n'
 
-\echo 'replace this line (including \echo) with your query'
+WITH playerCountPerTeam AS (
+SELECT COUNT(pname) AS playerCount
+FROM hasPlayedFor
+GROUP BY tname)
+SELECT AVG(playerCount)
+from playerCountPerTeam;
 
 
 
@@ -39,8 +48,18 @@
 
 \echo 'Result should be:\npname\nIguodala\n'
 
-\echo 'replace this line (including \echo) with your query'
-
+WITH notSpursPlayer AS 
+(
+	SELECT pname
+	FROM player
+	MINUS
+	SELECT pname
+	FROM hasPlayedFor
+	WHERE tname = 'Spurs'
+)
+SELECT pname
+FROM notSpursPlayer, player
+WHERE player.pname = notSpursPlayer.pname AND position = "SmallForward";
 
 
 
@@ -48,7 +67,19 @@
 
 \echo 'Result should be:\ncollege\nMaryland\n'
 
-\echo 'replace this line (including \echo) with your query'
+WITH spursAndBucksPlayers
+(
+	SELECT pname
+	FROM hasPlayedFor
+	WHERE tname = 'Spurs'
+	INTERSECT
+	SELECT pname
+	FROM hasPlayedFor
+	WHERE tname = 'Bucks'
+)
+SELECT college
+FROM spursAndBucksPlayers, player
+WHERE player.pname = spursAndBucksPlayers.pname;
 
 
 
@@ -56,7 +87,19 @@
 
 \echo 'Result should be:\ncollege\nWisconsin\nWakeForest\nMaryland\n'
 
-\echo 'replace this line (including \echo) with your query'
+WITH hornetsOrCenterPlayer AS
+(
+	SELECT pname 
+	FROM hasPlayedFor
+	WHERE tname = 'Hornets'
+	UNION
+	SELECT pname
+	FROM player
+	WHERE position = 'Center'
+)
+SELECT college
+FROM hornetsOrCenterPlayer, player
+WHERE player.pname = hornetsOrCenterPlayer.pname;
 
 
 
@@ -64,7 +107,15 @@
 
 \echo 'Result should be:\nposition\nSG\n'
 
-\echo 'replace this line (including \echo) with your query'
+WITH playerCountPerPosition AS
+(
+	SELECT COUNT(pname) AS playerCount
+	FROM player
+	GROUP BY position
+)
+SELECT position
+FROM playerCountPerPosition
+WHERE playerCount = MAX(playerCount);
 
 
 
@@ -72,16 +123,30 @@
 
 \echo 'Result should be:\ncity\nSanAntonio\n'
 
-SELECT city;
-FROM hasPlayedFor natural join team;
+SELECT city
+FROM hasPlayedFor NATURAL JOIN team
 WHERE pname = 'Leonard';
+
 
 
 \echo 'Problem 9: Find the college that has had the most players who have played the 'Point Guard' position who have played for at least one team. Note that a player is listed in the players relation does not imply that the have played for any teams.'
 
 \echo 'Result should be:\ncollege\nWakeForest\n'
 
-\echo 'replace this line (including \echo) with your query'
+WITH playerCountPerCollege AS
+(
+	WITH teamPlayer AS
+	(
+		SELECT pname
+		FROM hasPlayedFor
+	)
+	SELECT college, COUNT(pname) as playerCount
+	FROM teamPlayer, player
+	WHERE player.pname = teamPlayer.pname AND position = "PointGuard"
+)
+SELECT college
+FROM playerCountPerCollege
+WHERE playerCount = MAX(playerCount);
 
 
 
@@ -89,7 +154,11 @@ WHERE pname = 'Leonard';
 
 \echo 'Result should be:\npname\nSmith\n'
 
-\echo 'replace this line (including \echo) with your query'
+SELECT pname
+FROM player
+MINUS
+SELECT pname
+FROM hasPlayedFor;
 
 
 
@@ -97,4 +166,12 @@ WHERE pname = 'Leonard';
 
 \echo 'Result should be:\npname\nDuncan\nParker\nKaminsky\nMalone\nSmith\n'
 
-\echo 'replace this line (including \echo) with your query'
+WITH maxHeightOfWcuPlayers AS
+(
+	SELECT MAX(height) AS maxHeight
+	FROM player
+	WHERE college = "WCU"
+)
+SELECT pname
+FROM player
+WHERE height > maxHeightOfWcuPlayers.maxHeight;
