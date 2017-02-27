@@ -26,7 +26,7 @@ WHERE college = 'WCU';
 
 SELECT pname
 FROM hasPlayedFor
-WHERE COUNT(tname) > 2
+WHERE COUNT(tname) >= 3
 GROUP BY pname;
 
 
