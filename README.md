@@ -2,7 +2,7 @@
 Authors: Evan Arroyo and Joshua Sims  
 Date: 03 March 2017
 
-### Here are short descriptions of each file associated with this project:
+### Here are short descriptions of each file associated with this project
 * create_tables.sql
 	* Creates the tables for the NBA data
 * nba_db_data/
