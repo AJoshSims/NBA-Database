@@ -1,4 +1,4 @@
-# Creates, populates, and queries a database containing NBA information.
+## Creates, populates, and queries a database containing NBA information.
 Authors: Evan Arroyo and Joshua Sims  
 Date: 03 March 2017
 
