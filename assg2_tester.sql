@@ -26,7 +26,7 @@
 \echo '\nResult should be:\ntname\nTimberwolves\nRockets\nThunder\nKings\n'
 
 SELECT DISTINCT tname
-FROM hasPlayedFor, player
+FROM hasPlayedFor NATURAL JOIN player
 WHERE college = 'WCU';
 
 
@@ -37,8 +37,8 @@ WHERE college = 'WCU';
 
 SELECT pname
 FROM hasPlayedFor
-WHERE COUNT(tname) >= 3
-GROUP BY pname;
+GROUP BY pname
+HAVING COUNT(tname) >= 3;
 
 
 
@@ -63,14 +63,15 @@ WITH notSpursPlayer AS
 (
 	SELECT pname
 	FROM player
-	MINUS
+	EXCEPT
 	SELECT pname
 	FROM hasPlayedFor
 	WHERE tname = 'Spurs'
 )
-SELECT pname
+SELECT player.pname
 FROM notSpursPlayer, player
-WHERE player.pname = notSpursPlayer.pname AND position = "SmallForward";
+WHERE player.pname = notSpursPlayer.pname AND player.position = 'SmallForward';
+
 
 
 
@@ -78,15 +79,15 @@ WHERE player.pname = notSpursPlayer.pname AND position = "SmallForward";
 
 \echo 'Result should be:\ncollege\nMaryland\n'
 
-WITH spursAndBucksPlayers
+WITH spursAndBucksPlayers AS
 (
 	SELECT pname
 	FROM hasPlayedFor
 	WHERE tname = 'Spurs'
-	INTERSECT
-	SELECT pname
-	FROM hasPlayedFor
-	WHERE tname = 'Bucks'
+    INTERSECT
+    SELECT pname
+    FROM hasPlayedFor
+    WHERE tname = 'Bucks'
 )
 SELECT college
 FROM spursAndBucksPlayers, player
@@ -120,13 +121,13 @@ WHERE player.pname = hornetsOrCenterPlayer.pname;
 
 WITH playerCountPerPosition AS
 (
-	SELECT COUNT(pname) AS playerCount
+	SELECT position, COUNT(pname) AS playerCount
 	FROM player
 	GROUP BY position
 )
 SELECT position
 FROM playerCountPerPosition
-WHERE playerCount = MAX(playerCount);
+WHERE playerCount = (SELECT MAX(playerCount) FROM playerCountPerPosition);
 
 
 
@@ -152,12 +153,13 @@ WITH playerCountPerCollege AS
 		FROM hasPlayedFor
 	)
 	SELECT college, COUNT(pname) as playerCount
-	FROM teamPlayer, player
-	WHERE player.pname = teamPlayer.pname AND position = "PointGuard"
+	FROM teamPlayer NATURAL JOIN player
+	WHERE position = 'PointGuard'
+    GROUP BY college
 )
 SELECT college
 FROM playerCountPerCollege
-WHERE playerCount = MAX(playerCount);
+WHERE playerCount = (SELECT MAX(playerCount) FROM playerCountPerCollege);
 
 
 
@@ -167,7 +169,7 @@ WHERE playerCount = MAX(playerCount);
 
 SELECT pname
 FROM player
-MINUS
+EXCEPT
 SELECT pname
 FROM hasPlayedFor;
 
@@ -181,10 +183,10 @@ WITH maxHeightOfWcuPlayers AS
 (
 	SELECT MAX(height) AS maxHeight
 	FROM player
-	WHERE college = "WCU"
+	WHERE college = 'WCU'
 )
 SELECT pname
-FROM player
+FROM player, maxHeightOfWcuPlayers
 WHERE height > maxHeightOfWcuPlayers.maxHeight;
 
 
