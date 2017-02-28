@@ -3,11 +3,11 @@
 Authors: Evan Arroyo and Joshua Sims  
 Date: 03 March 2017
 
-The psql command "\i assg2_tester.sql" creates the tables, populates the
-tables, queries the database, and deletes the tables.
+**The psql command "\i assg2_tester.sql" creates the tables, populates the
+tables, queries the database, and deletes the tables.**
 
-<h3>Here are short descriptions of each file associated with this project
-* create_tables.sql</h3>
+<h3>Here are short descriptions of each file associated with this project</h3>
+* create_tables.sql
 	* Creates the tables for the NBA data
 * nba_db_data/
 	* The NBA data
