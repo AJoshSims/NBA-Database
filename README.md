@@ -1,6 +1,11 @@
-## Creates, populates, and queries a database containing NBA information.
+## Creates the tables, populates the tables, queries, and deletes the tables,  
+for a database containing NBA information.
+
 Authors: Evan Arroyo and Joshua Sims  
 Date: 03 March 2017
+
+The psql command "\i assg2_tester.sql" creates the tables, populates the
+tables, queries the database, and deletes the tables.
 
 ### Here are short descriptions of each file associated with this project
 * create_tables.sql
@@ -11,4 +16,6 @@ Date: 03 March 2017
 	* Populates the tables with the NBA data
 * drop_tables.sql
 	* Removes the tables previously created for the NBA data
+* assg2_tester.sql
+    * Executes each of the aforementioned .sql files and queries the database
 
