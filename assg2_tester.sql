@@ -131,7 +131,7 @@ WHERE playerCount = (SELECT MAX(playerCount) FROM playerCountPerPosition);
 
 
 
-\echo 'Problem 8: Find the cities of the teams that the player named ìLeonardî has played for.'
+\echo 'Problem 8: Find the cities of the teams that the player named ‚ÄúLeonard‚Äù has played for.'
 
 \echo 'Result should be:\ncity\nSanAntonio\n'
 
