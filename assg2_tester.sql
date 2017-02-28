@@ -15,9 +15,9 @@
 
 \i create_tables.sql
 
-\copy player from 'nba_db_data/player_data.txt'
-\copy team from 'nba_db_data/team_data.txt'
-\copy hasPlayedFor from 'nba_db_data/hasPlayedFor_data.txt'
+
+
+\i populate_tables.sql
 
 
 
