@@ -15,7 +15,7 @@ CREATE TABLE player(
 CREATE TABLE team(
     
     tname       varchar(20),
-    city        varchar(10),
+    city        varchar(20),
     primary key(tname)
 
 );
