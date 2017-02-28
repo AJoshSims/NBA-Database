@@ -1,5 +1,5 @@
-## Creates the tables, populates the tables, queries, and deletes the tables,  
-for a database containing NBA information.
+## Creates the tables, populates the tables, queries, and deletes the tables  
+## for a database containing NBA information.
 
 Authors: Evan Arroyo and Joshua Sims  
 Date: 03 March 2017
