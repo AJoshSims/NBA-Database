@@ -1,5 +1,5 @@
 # Creates, populates, and queries a database containing NBA information.
-Authors: Evan Arroyo and Joshua Sims
+Authors: Evan Arroyo and Joshua Sims  
 Date: 03 March 2017
 
 ### Here are short descriptions of each file associated with this project:
