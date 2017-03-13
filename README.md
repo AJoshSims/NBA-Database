@@ -1,4 +1,4 @@
-<h2>Creates the tables, populates the tables, queries, and deletes the tables for a database containing NBA information</h2>
+<h2>Creates the tables, populates the tables, queries, and deletes the tables for a database containing NBA information.</h2>
 
 Authors: Evan Arroyo and Joshua Sims  
 Date: 03 March 2017
